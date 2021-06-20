@@ -35,10 +35,14 @@ public class CraftSlimeWorld implements SlimeWorld {
     private final boolean readOnly;
 
     private final boolean locked;
+    
+    private static long chunkCoordsToIndex(int x, int z) {
+		return (long) x | ((long) z << 32);
+	}
 
     @Override
     public SlimeChunk getChunk(int x, int z) {
-        Long index = (((long) z) * Integer.MAX_VALUE + ((long) x));
+        Long index = chunkCoordsToIndex(x, z);
         synchronized (chunks) {
             return chunks.get(index);
         }
@@ -51,7 +55,7 @@ public class CraftSlimeWorld implements SlimeWorld {
         }
 
         synchronized (chunks) {
-            chunks.put(((long) chunk.getZ()) * Integer.MAX_VALUE + ((long) chunk.getX()), chunk);
+            chunks.put(chunkCoordsToIndex(chunk.getX(), chunk.getZ()), chunk);
         }
     }
 
@@ -120,7 +124,7 @@ public class CraftSlimeWorld implements SlimeWorld {
             sortedChunks = new ArrayList<>(chunks.values());
         }
 
-        sortedChunks.sort(Comparator.comparingLong(chunk -> (long) chunk.getZ() * Integer.MAX_VALUE + (long) chunk.getX()));
+        sortedChunks.sort(Comparator.comparingLong(chunk -> chunkCoordsToIndex(chunk.getX(), chunk.getZ())));
         sortedChunks.removeIf(chunk -> chunk == null || Arrays.stream(chunk.getSections()).allMatch(Objects::isNull)); // Remove empty chunks to save space
 
         // Store world properties
@@ -154,7 +158,7 @@ public class CraftSlimeWorld implements SlimeWorld {
             outStream.writeShort(depth);
 
             // Chunk Bitmask
-            BitSet chunkBitset = new BitSet(width * depth);
+            BitSet chunkBitset = new BitSet(width * depth); // TODO: Use roaring bitsets!
 
             for (SlimeChunk chunk : sortedChunks) {
                 int bitsetIndex = (chunk.getZ() - minZ) * width + (chunk.getX() - minX);
