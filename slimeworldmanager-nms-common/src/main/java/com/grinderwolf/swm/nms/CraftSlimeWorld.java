@@ -38,9 +38,8 @@ public class CraftSlimeWorld implements SlimeWorld {
 
     @Override
     public SlimeChunk getChunk(int x, int z) {
+        Long index = (((long) z) * Integer.MAX_VALUE + ((long) x));
         synchronized (chunks) {
-            Long index = (((long) z) * Integer.MAX_VALUE + ((long) x));
-
             return chunks.get(index);
         }
     }
