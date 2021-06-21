@@ -8,7 +8,9 @@ import com.grinderwolf.swm.api.world.SlimeChunk;
 import com.grinderwolf.swm.api.world.SlimeChunkSection;
 import com.grinderwolf.swm.api.world.properties.SlimeProperties;
 import com.grinderwolf.swm.api.world.properties.SlimePropertyMap;
-import com.grinderwolf.swm.nms.*;
+import com.grinderwolf.swm.nms.CraftSlimeChunk;
+import com.grinderwolf.swm.nms.CraftSlimeChunkSection;
+import com.grinderwolf.swm.nms.CraftSlimeWorld;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -207,7 +209,7 @@ public class WorldImporter {
         }
 
         int[] biomes;
-        Tag biomesTag = compound.getValue().get("Biomes");
+        Tag<?> biomesTag = compound.getValue().get("Biomes");
 
         if (biomesTag instanceof IntArrayTag) {
             biomes = ((IntArrayTag) biomesTag).getValue();

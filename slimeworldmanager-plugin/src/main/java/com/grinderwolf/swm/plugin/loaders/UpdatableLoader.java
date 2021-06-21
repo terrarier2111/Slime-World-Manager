@@ -12,7 +12,7 @@ public abstract class UpdatableLoader implements SlimeLoader {
 
     @Getter
     @RequiredArgsConstructor
-    public class NewerDatabaseException extends Exception {
+    public static class NewerDatabaseException extends Exception {
 
         private final int currentVersion;
         private final int databaseVersion;

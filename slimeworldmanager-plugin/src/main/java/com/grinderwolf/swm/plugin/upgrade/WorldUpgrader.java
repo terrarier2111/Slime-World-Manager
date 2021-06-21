@@ -55,4 +55,5 @@ public class WorldUpgrader {
 
         world.setVersion(serverVersion);
     }
+
 }

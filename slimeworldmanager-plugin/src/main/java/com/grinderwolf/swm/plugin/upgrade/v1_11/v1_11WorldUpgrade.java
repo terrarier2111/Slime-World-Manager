@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class v1_11WorldUpgrade implements Upgrade {
 
-    private static Map<String, String> oldToNewMap = new HashMap<>();
-    private static Map<String, String> newToOldMap = new HashMap<>();
+    private static final Map<String, String> OLD_TO_NEW_MAP = new HashMap<>();
+    private static final Map<String, String> NEW_TO_OLD_MAP = new HashMap<>();
 
     static {
         rename("Furnace", "minecraft:furnace");
@@ -43,10 +43,10 @@ public class v1_11WorldUpgrade implements Upgrade {
 
     private static void rename(String oldName, String newName) {
         if (oldName != null) {
-            oldToNewMap.put(oldName, newName);
+            OLD_TO_NEW_MAP.put(oldName, newName);
         }
 
-        newToOldMap.put(newName, oldName);
+        NEW_TO_OLD_MAP.put(newName, oldName);
     }
 
     @Override
@@ -55,10 +55,10 @@ public class v1_11WorldUpgrade implements Upgrade {
         for (SlimeChunk chunk : world.getChunks().values()) {
             for (CompoundTag entityTag : chunk.getTileEntities()) {
                 String oldType = entityTag.getAsStringTag("id").get().getValue();
-                String newType = oldToNewMap.get(oldType);
+                String newType = OLD_TO_NEW_MAP.get(oldType);
 
                 if (newType == null) {
-                    if (newToOldMap.containsKey(oldType)) { // Maybe it's in the new format for some reason?
+                    if (NEW_TO_OLD_MAP.containsKey(oldType)) { // Maybe it's in the new format for some reason?
                         continue;
                     }
 
@@ -75,7 +75,7 @@ public class v1_11WorldUpgrade implements Upgrade {
         for (SlimeChunk chunk : world.getChunks().values()) {
             for (CompoundTag entityTag : chunk.getTileEntities()) {
                 String oldType = entityTag.getAsStringTag("id").get().getValue();
-                String newType = newToOldMap.get(oldType);
+                String newType = NEW_TO_OLD_MAP.get(oldType);
 
                 if (newType != null) {
                     entityTag.getValue().put("id", new StringTag("id", newType));
@@ -83,4 +83,5 @@ public class v1_11WorldUpgrade implements Upgrade {
             }
         }
     }
+    
 }

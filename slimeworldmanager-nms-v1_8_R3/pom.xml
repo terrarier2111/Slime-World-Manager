@@ -13,30 +13,40 @@
     <artifactId>slimeworldmanager-nms-v1_8_R3</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>com.grinderwolf</groupId>
             <artifactId>slimeworldmanager-nms-common</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>com.grinderwolf</groupId>
             <artifactId>slimeworldmanager-api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version> <!-- or the latest one-->
         </dependency>
+
         <dependency>
             <groupId>com.grinderwolf</groupId>
             <artifactId>slimeworldmanager-classmodifier</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.azbh111</groupId>
+            <artifactId>craftbukkit-1.8.8</artifactId>
+            <version>R</version>
+        </dependency>
+
     </dependencies>
 
 

@@ -1,12 +1,6 @@
 package com.grinderwolf.swm.plugin.loaders;
 
-import com.flowpowered.nbt.CompoundMap;
-import com.flowpowered.nbt.CompoundTag;
-import com.flowpowered.nbt.DoubleTag;
-import com.flowpowered.nbt.IntArrayTag;
-import com.flowpowered.nbt.IntTag;
-import com.flowpowered.nbt.ListTag;
-import com.flowpowered.nbt.TagType;
+import com.flowpowered.nbt.*;
 import com.flowpowered.nbt.stream.NBTInputStream;
 import com.github.luben.zstd.Zstd;
 import com.grinderwolf.swm.api.exceptions.CorruptedWorldException;
@@ -28,11 +22,7 @@ import com.grinderwolf.swm.plugin.loaders.mysql.MysqlLoader;
 import com.grinderwolf.swm.plugin.log.Logging;
 import com.mongodb.MongoException;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.sql.SQLException;
@@ -43,7 +33,7 @@ public class LoaderUtils {
     public static final long MAX_LOCK_TIME = 300000L; // Max time difference between current time millis and world lock
     public static final long LOCK_INTERVAL = 60000L;
 
-    private static Map<String, SlimeLoader> loaderMap = new HashMap<>();
+    private static final Map<String, SlimeLoader> LOADER_MAP = new HashMap<>();
 
     public static void registerLoaders() {
         DatasourcesConfig config = ConfigManager.getDatasourcesConfig();
@@ -77,16 +67,16 @@ public class LoaderUtils {
     }
 
     public static List<String> getAvailableLoadersNames() {
-        return new LinkedList<>(loaderMap.keySet());
+        return new LinkedList<>(LOADER_MAP.keySet());
     }
 
 
     public static SlimeLoader getLoader(String dataSource) {
-        return loaderMap.get(dataSource);
+        return LOADER_MAP.get(dataSource);
     }
 
     public static void registerLoader(String dataSource, SlimeLoader loader) {
-        if (loaderMap.containsKey(dataSource)) {
+        if (LOADER_MAP.containsKey(dataSource)) {
             throw new IllegalArgumentException("Data source " + dataSource + " already has a declared loader!");
         }
 
@@ -104,7 +94,7 @@ public class LoaderUtils {
             }
         }
 
-        loaderMap.put(dataSource, loader);
+        LOADER_MAP.put(dataSource, loader);
     }
 
     public static CraftSlimeWorld deserializeWorld(SlimeLoader loader, String worldName, byte[] serializedWorld, SlimePropertyMap propertyMap, boolean readOnly)

@@ -1,27 +1,19 @@
 package com.grinderwolf.swm.plugin.upgrade.v1_14;
 
-import com.flowpowered.nbt.ByteTag;
-import com.flowpowered.nbt.CompoundMap;
-import com.flowpowered.nbt.CompoundTag;
-import com.flowpowered.nbt.IntTag;
-import com.flowpowered.nbt.StringTag;
+import com.flowpowered.nbt.*;
 import com.grinderwolf.swm.api.world.SlimeChunk;
 import com.grinderwolf.swm.api.world.SlimeChunkSection;
 import com.grinderwolf.swm.nms.CraftSlimeWorld;
 import com.grinderwolf.swm.plugin.upgrade.Upgrade;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class v1_14WorldUpgrade implements Upgrade {
 
     private static final int[] VILLAGER_XP = { 0, 10, 50, 100, 150 };
 
-    private static Map<String, String> oldToNewMap = new HashMap<>();
-    private static Map<String, String> newToOldMap = new HashMap<>();
+    private static final Map<String, String> OLD_TO_NEW_MAP = new HashMap<>();
+    private static final Map<String, String> NEW_TO_OLD_MAP = new HashMap<>();
 
     static {
         rename("minecraft:tube_coral_fan", "minecraft:tube_coral_wall_fan");
@@ -35,8 +27,8 @@ public class v1_14WorldUpgrade implements Upgrade {
     }
 
     private static void rename(String oldName, String newName) {
-        oldToNewMap.put(oldName, newName);
-        newToOldMap.put(newName, oldName);
+        OLD_TO_NEW_MAP.put(oldName, newName);
+        NEW_TO_OLD_MAP.put(newName, oldName);
     }
 
     @Override
@@ -59,7 +51,7 @@ public class v1_14WorldUpgrade implements Upgrade {
                             updateBlockEntities(chunk, sectionIndex, paletteIndex, "minecraft:chest", "minecraft:trapped_chest");
                         }
 
-                        String newName = oldToNewMap.get(name);
+                        String newName = OLD_TO_NEW_MAP.get(name);
 
                         if (newName != null) {
                             blockTag.getValue().put("Name", new StringTag("Name", newName));
@@ -142,7 +134,7 @@ public class v1_14WorldUpgrade implements Upgrade {
     }
 
     private int clamp(int i, int i1, int i2) {
-        return i < i1 ? i1 : (i > i2 ? i2 : i);
+        return i < i1 ? i1 : Math.min(i, i2);
     }
 
     private String getVillagerProfession(int profession, int career) {
@@ -171,7 +163,7 @@ public class v1_14WorldUpgrade implements Upgrade {
                             updateBlockEntities(chunk, sectionIndex, paletteIndex, "minecraft:trapped_chest", "minecraft:chest");
                         }
 
-                        String newName = newToOldMap.get(name);
+                        String newName = NEW_TO_OLD_MAP.get(name);
 
                         if (newName != null) {
                             blockTag.getValue().put("Name", new StringTag("Name", newName));

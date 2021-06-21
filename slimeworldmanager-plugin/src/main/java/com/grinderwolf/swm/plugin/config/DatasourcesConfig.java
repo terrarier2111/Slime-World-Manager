@@ -16,7 +16,7 @@ public class DatasourcesConfig {
     @ConfigSerializable
     public static class MysqlConfig {
 
-        @Setting("enabled") private boolean enabled = false;
+        @Setting("enabled") private boolean enabled;
 
         @Setting("host") private String host = "127.0.0.1";
         @Setting("port") private int port = 3306;

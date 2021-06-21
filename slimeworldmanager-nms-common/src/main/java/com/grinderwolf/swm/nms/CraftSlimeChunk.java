@@ -6,7 +6,6 @@ import com.grinderwolf.swm.api.world.SlimeChunkSection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class CraftSlimeChunk implements SlimeChunk {
     private final int x;
     private final int z;
 
-    @Setter
     private final SlimeChunkSection[] sections;
     private final CompoundTag heightMaps;
     private final int[] biomes;

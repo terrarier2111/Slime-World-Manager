@@ -9,11 +9,7 @@ import com.grinderwolf.swm.plugin.loaders.UpdatableLoader;
 import com.grinderwolf.swm.plugin.log.Logging;
 import com.mongodb.MongoException;
 import com.mongodb.MongoNamespace;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import com.mongodb.client.gridfs.model.GridFSFile;
@@ -42,7 +38,7 @@ public class MongoLoader extends UpdatableLoader {
     private static final ScheduledExecutorService SERVICE = Executors.newScheduledThreadPool(2, new ThreadFactoryBuilder()
             .setNameFormat("SWM MongoDB Lock Pool Thread #%1$d").build());
 
-    private final Map<String, ScheduledFuture> lockedWorlds = new HashMap<>();
+    private final Map<String, ScheduledFuture<?>> lockedWorlds = new HashMap<>();
 
     private final MongoClient client;
     private final String database;
@@ -215,7 +211,7 @@ public class MongoLoader extends UpdatableLoader {
 
     @Override
     public void unlockWorld(String worldName) throws IOException, UnknownWorldException {
-        ScheduledFuture future = lockedWorlds.remove(worldName);
+        ScheduledFuture<?> future = lockedWorlds.remove(worldName);
 
         if (future != null) {
             future.cancel(false);
@@ -257,7 +253,7 @@ public class MongoLoader extends UpdatableLoader {
 
     @Override
     public void deleteWorld(String worldName) throws IOException, UnknownWorldException {
-        ScheduledFuture future = lockedWorlds.remove(worldName);
+        ScheduledFuture<?> future = lockedWorlds.remove(worldName);
 
         if (future != null) {
             future.cancel(false);

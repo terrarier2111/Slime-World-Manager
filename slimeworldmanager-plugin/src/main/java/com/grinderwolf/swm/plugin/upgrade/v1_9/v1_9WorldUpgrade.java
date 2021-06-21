@@ -55,4 +55,5 @@ public class v1_9WorldUpgrade implements Upgrade {
 
         return value;
     }
+
 }

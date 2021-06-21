@@ -1,6 +1,5 @@
 package com.grinderwolf.swm.plugin.commands.sub;
 
-
 import com.grinderwolf.swm.api.exceptions.CorruptedWorldException;
 import com.grinderwolf.swm.api.exceptions.NewerFormatException;
 import com.grinderwolf.swm.api.exceptions.UnknownWorldException;
@@ -22,7 +21,6 @@ import org.bukkit.command.ConsoleCommandSender;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 @Getter

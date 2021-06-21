@@ -1,19 +1,6 @@
 package com.grinderwolf.swm.plugin.upgrade.v1_13;
 
-import com.flowpowered.nbt.ByteArrayTag;
-import com.flowpowered.nbt.ByteTag;
-import com.flowpowered.nbt.CompoundMap;
-import com.flowpowered.nbt.CompoundTag;
-import com.flowpowered.nbt.DoubleTag;
-import com.flowpowered.nbt.FloatTag;
-import com.flowpowered.nbt.IntArrayTag;
-import com.flowpowered.nbt.IntTag;
-import com.flowpowered.nbt.ListTag;
-import com.flowpowered.nbt.LongTag;
-import com.flowpowered.nbt.ShortTag;
-import com.flowpowered.nbt.StringTag;
-import com.flowpowered.nbt.Tag;
-import com.flowpowered.nbt.TagType;
+import com.flowpowered.nbt.*;
 import com.google.gson.GsonBuilder;
 import com.grinderwolf.swm.api.utils.NibbleArray;
 import com.grinderwolf.swm.api.world.SlimeChunk;
@@ -33,12 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class v1_13WorldUpgrade implements Upgrade {
@@ -308,26 +290,26 @@ public class v1_13WorldUpgrade implements Upgrade {
                                                     }
                                                 }
 
-                                                Tag nbtTag;
+                                                Tag<?> nbtTag;
 
                                                 switch (value.getType().toLowerCase()) {
                                                     case "byte":
-                                                        nbtTag = new ByteTag(key, Byte.valueOf(nbtValue));
+                                                        nbtTag = new ByteTag(key, Byte.parseByte(nbtValue));
                                                         break;
                                                     case "short":
-                                                        nbtTag = new ShortTag(key, Short.valueOf(nbtValue));
+                                                        nbtTag = new ShortTag(key, Short.parseShort(nbtValue));
                                                         break;
                                                     case "int":
-                                                        nbtTag = new IntTag(key, Integer.valueOf(nbtValue));
+                                                        nbtTag = new IntTag(key, Integer.parseInt(nbtValue));
                                                         break;
                                                     case "long":
-                                                        nbtTag = new LongTag(key, Long.valueOf(nbtValue));
+                                                        nbtTag = new LongTag(key, Long.parseLong(nbtValue));
                                                         break;
                                                     case "float":
-                                                        nbtTag = new FloatTag(key, Float.valueOf(nbtValue));
+                                                        nbtTag = new FloatTag(key, Float.parseFloat(nbtValue));
                                                         break;
                                                     case "double":
-                                                        nbtTag = new DoubleTag(key, Double.valueOf(nbtValue));
+                                                        nbtTag = new DoubleTag(key, Double.parseDouble(nbtValue));
                                                         break;
                                                     default:
                                                         nbtTag = new StringTag(key, nbtValue);

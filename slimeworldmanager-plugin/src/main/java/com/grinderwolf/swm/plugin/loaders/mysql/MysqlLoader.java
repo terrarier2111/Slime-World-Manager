@@ -50,7 +50,7 @@ public class MysqlLoader extends UpdatableLoader {
     private static final String DELETE_WORLD_QUERY = "DELETE FROM `worlds` WHERE `name` = ?;";
     private static final String LIST_WORLDS_QUERY = "SELECT `name` FROM `worlds`;";
 
-    private final Map<String, ScheduledFuture> lockedWorlds = new HashMap<>();
+    private final Map<String, ScheduledFuture<?>> lockedWorlds = new HashMap<>();
     private final HikariDataSource source;
 
     public MysqlLoader(DatasourcesConfig.MysqlConfig config) throws SQLException {
@@ -223,7 +223,7 @@ public class MysqlLoader extends UpdatableLoader {
 
     @Override
     public void unlockWorld(String worldName) throws IOException, UnknownWorldException {
-        ScheduledFuture future = lockedWorlds.remove(worldName);
+        ScheduledFuture<?> future = lockedWorlds.remove(worldName);
 
         if (future != null) {
             future.cancel(false);
@@ -265,7 +265,7 @@ public class MysqlLoader extends UpdatableLoader {
 
     @Override
     public void deleteWorld(String worldName) throws IOException, UnknownWorldException {
-        ScheduledFuture future = lockedWorlds.remove(worldName);
+        ScheduledFuture<?> future = lockedWorlds.remove(worldName);
 
         if (future != null) {
             future.cancel(false);

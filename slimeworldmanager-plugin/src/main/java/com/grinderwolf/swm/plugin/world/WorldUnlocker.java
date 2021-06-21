@@ -30,9 +30,10 @@ public class WorldUnlocker implements Listener {
             Logging.error("Failed to unlock world " + world.getName() + ". Retrying in 5 seconds. Stack trace:");
             ex.printStackTrace();
 
-            Bukkit.getScheduler().runTaskLaterAsynchronously(SWMPlugin.getInstance(), () -> unlockWorld(world), 100);
+            Bukkit.getScheduler().runTaskLaterAsynchronously(SWMPlugin.getInstance(), () -> unlockWorld(world), 100L);
         } catch (UnknownWorldException ignored) {
 
         }
     }
+
 }
