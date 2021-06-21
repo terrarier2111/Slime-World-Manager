@@ -132,7 +132,7 @@ public class NMSTransformer implements ClassFileTransformer {
     public byte[] transform(ClassLoader classLoader, String className, Class<?> classBeingTransformed, ProtectionDomain protectionDomain, byte[] bytes) {
         if (className != null) {
             if (CHANGES.containsKey(className)) {
-                String fixedClassName = className.replace("/", ".");
+                String fixedClassName = className.replace('/', '.');
 
                 if (DEBUG) {
                     System.out.println("Applying changes for class " + fixedClassName);
@@ -200,4 +200,5 @@ public class NMSTransformer implements ClassFileTransformer {
         private final boolean optional;
 
     }
+
 }

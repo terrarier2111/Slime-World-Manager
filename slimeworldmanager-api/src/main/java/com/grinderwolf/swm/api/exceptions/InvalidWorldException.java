@@ -11,4 +11,5 @@ public class InvalidWorldException extends SlimeException {
     public InvalidWorldException(File worldDir) {
         super("Directory " + worldDir.getPath() + " does not contain a valid MC world!");
     }
+
 }

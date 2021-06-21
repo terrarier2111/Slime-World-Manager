@@ -39,4 +39,5 @@ public class SlimeProperties {
     });
 
     public static final SlimeProperty[] VALUES = { SPAWN_X, SPAWN_Y, SPAWN_Z, DIFFICULTY, ALLOW_MONSTERS, ALLOW_ANIMALS, PVP, ENVIRONMENT, WORLD_TYPE };
+
 }

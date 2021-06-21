@@ -18,4 +18,5 @@ public abstract class UpdatableLoader implements SlimeLoader {
         private final int databaseVersion;
 
     }
+
 }

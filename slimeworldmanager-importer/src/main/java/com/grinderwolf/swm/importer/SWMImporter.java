@@ -261,7 +261,7 @@ public class SWMImporter {
         }
 
         int[] biomes;
-        Tag biomesTag = compound.getValue().get("Biomes");
+        Tag<?> biomesTag = compound.getValue().get("Biomes");
 
         if (biomesTag instanceof IntArrayTag) {
             biomes = ((IntArrayTag) biomesTag).getValue();
@@ -592,4 +592,5 @@ public class SWMImporter {
 
         return outByteStream.toByteArray();
     }
+
 }

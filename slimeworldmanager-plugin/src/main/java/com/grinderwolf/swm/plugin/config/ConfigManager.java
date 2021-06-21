@@ -68,4 +68,5 @@ public class ConfigManager {
             Files.copy(SWMPlugin.getInstance().getResource("worlds.yml"), SOURCES_FILE.toPath());
         }
     }
+
 }

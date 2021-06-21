@@ -10,4 +10,5 @@ public class SlimeFormat {
 
     /** Latest version of the SRF that SWM supports **/
     public static final byte SLIME_VERSION = 9;
+
 }

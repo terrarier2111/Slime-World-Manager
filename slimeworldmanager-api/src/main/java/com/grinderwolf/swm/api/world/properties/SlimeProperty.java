@@ -38,4 +38,5 @@ public class SlimeProperty {
         this.defaultValue = defaultValue;
         this.validator = validator;
     }
+
 }

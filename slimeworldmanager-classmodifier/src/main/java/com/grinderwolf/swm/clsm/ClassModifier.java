@@ -3,7 +3,6 @@ package com.grinderwolf.swm.clsm;
 import com.mojang.datafixers.util.Either;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BooleanSupplier;
 
 /**
  * This class serves as a bridge between the SWM and the Minecraft server.
@@ -17,12 +16,9 @@ import java.util.function.BooleanSupplier;
  */
 public class ClassModifier {
 
-    // Required for Paper 1.13 as javassist can't compile this class
-    public static final BooleanSupplier BOOLEAN_SUPPLIER = () -> true;
-
     private static CLSMBridge customLoader;
 
-    public static CompletableFuture getFutureChunk(Object world, int x, int z) {
+    public static CompletableFuture<?> getFutureChunk(Object world, int x, int z) {
         if (customLoader == null) {
             return null;
         }
@@ -50,4 +46,5 @@ public class ClassModifier {
     public static Object[] getDefaultWorlds() {
         return customLoader != null ? customLoader.getDefaultWorlds() : null;
     }
+
 }

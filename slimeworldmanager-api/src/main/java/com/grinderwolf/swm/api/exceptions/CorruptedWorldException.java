@@ -13,4 +13,5 @@ public class CorruptedWorldException extends SlimeException {
     public CorruptedWorldException(String world, Exception ex) {
         super("World " + world + " seems to be corrupted", ex);
     }
+
 }

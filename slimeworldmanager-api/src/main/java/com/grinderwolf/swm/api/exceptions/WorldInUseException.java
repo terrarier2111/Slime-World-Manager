@@ -9,4 +9,5 @@ public class WorldInUseException extends SlimeException {
     public WorldInUseException(String world) {
         super(world);
     }
+
 }

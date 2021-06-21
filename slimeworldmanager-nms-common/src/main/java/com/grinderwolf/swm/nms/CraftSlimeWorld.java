@@ -167,7 +167,7 @@ public class CraftSlimeWorld implements SlimeWorld {
             outStream.writeShort(depth);
 
             // Chunk Bitmask
-            BitSet chunkBitset = new BitSet(width * depth); // TODO: Use roaring bitsets!
+            BitSet chunkBitset = new BitSet(width * depth); // TODO: Use roaring bitsets (but check if it's actually an improvement)!
 
             for (SlimeChunk chunk : sortedChunks) {
                 int bitsetIndex = (chunk.getZ() - minZ) * width + (chunk.getX() - minX);
@@ -352,4 +352,5 @@ public class CraftSlimeWorld implements SlimeWorld {
 
         return outByteStream.toByteArray();
     }
+
 }

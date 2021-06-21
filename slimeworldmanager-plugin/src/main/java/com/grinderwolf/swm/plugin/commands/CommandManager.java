@@ -16,7 +16,7 @@ public class CommandManager implements TabExecutor {
 
     @Getter
     private static CommandManager instance;
-    private Map<String, Subcommand> commands = new HashMap<>();
+    private final Map<String, Subcommand> commands = new HashMap<>();
 
     /* A list containing all the worlds that are being performed operations on, so two commands cannot be run at the same time */
     @Getter
@@ -26,7 +26,6 @@ public class CommandManager implements TabExecutor {
         instance = this;
 
         commands.put("help", new HelpCmd());
-        commands.put("version", new VersionCmd());
         commands.put("goto", new GotoCmd());
         commands.put("load", new LoadWorldCmd());
         commands.put("load-template", new LoadTemplateWorldCmd());

@@ -9,7 +9,6 @@ import lombok.Getter;
  */
 public class NibbleArray {
 
-    private final int size;
     @Getter
     private final byte[] backing;
 
@@ -19,7 +18,6 @@ public class NibbleArray {
 
     public NibbleArray(byte[] backing) {
         this.backing = backing;
-        this.size = backing.length * 2;
     }
 
     public int get(int index) {
@@ -39,4 +37,5 @@ public class NibbleArray {
             this.backing[halfIndex] = (byte) (previous & 0xF | nibble << 4);
         }
     }
+
 }
